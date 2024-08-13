@@ -28,3 +28,8 @@ let Dinosauuuurr = {
 }
 
 pokemonList.push(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
+
+for (let i = 0; i < pokemonList.length; i++) {
+	// console.log(pokemonList[i])
+	document.body.innerHTML += JSON.stringify(pokemonList[i]) + '<br>'
+}
