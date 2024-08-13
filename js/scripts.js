@@ -31,5 +31,18 @@ pokemonList.push(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
 
 for (let i = 0; i < pokemonList.length; i++) {
 	// console.log(pokemonList[i])
-	document.body.innerHTML += JSON.stringify(pokemonList[i]) + '<br>'
+	// console.log(pokemonList[i].height)
+	if (pokemonList[i].height >= 7) {
+		document.write(
+			JSON.stringify(pokemonList[i].name) + "  You're big!!!!" + '<br><br>'
+		)
+	}
+	if (pokemonList[i].types[0] === 'telekinesis') {
+		document.write(
+			JSON.stringify(pokemonList[i].name) +
+				"  I'm a huge fan of Eleven from Stranger Things!!!!!" +
+				'<br><br>'
+		)
+	}
+	// document.body.innerHTML += JSON.stringify(pokemonList[i]) + '<br>'
 }
