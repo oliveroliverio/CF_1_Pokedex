@@ -1,4 +1,4 @@
-let iifePokemonList = (function () {
+let pokemonRepository = (function () {
 	let pokemonList = []
 	return {
 		add: function (pokemon) {
@@ -10,55 +10,39 @@ let iifePokemonList = (function () {
 	}
 })()
 
-iifePokemonList.add({
-	name: 'Bulbasaur',
-	height: 7,
-	types: ['grass', 'poison'],
+let pokemonData = {
+	Bulbasaur: {
+		name: 'Bulbasaur',
+		height: 7,
+		types: ['trees', 'green'],
+	},
+	Charmeleon: {
+		name: 'Charmeleon',
+		height: 3,
+		types: ['fire', 'orange'],
+	},
+	Pikachu: {
+		name: 'Pikachu',
+		height: 5,
+		types: ['lightning', 'yellow'],
+	},
+	MewToo: {
+		name: 'MewToo',
+		height: 3,
+		types: ['telekinesis', 'purple'],
+	},
+	Dinosauuuurr: {
+		name: 'Dinosauuur',
+		height: 8,
+		types: ['veryStrong', 'green'],
+	},
+}
+// access values of the object so as to pass through forEach loop
+Object.values(pokemonData).forEach(function (pokemon) {
+	pokemonRepository.add(pokemon)
 })
 
-let Charmeleon = {
-	name: 'Charmeleon',
-	height: 3,
-	types: ['fire', 'orange'],
-}
-let Pikachu = {
-	name: 'Pikachu',
-	height: 5,
-	types: ['lightning', 'yellow'],
-}
-let MewToo = {
-	name: 'MewToo',
-	height: 3,
-	types: ['telekinesis', 'purple'],
-}
-let Dinosauuuurr = {
-	name: 'Dinosauuur',
-	height: 8,
-	types: ['veryStrong', 'green'],
-}
-
-iifePokemonList.add(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
-
-// for (let i = 0; i < pokemonList.length; i++) {
-// 	// console.log(pokemonList[i])
-// 	// console.log(pokemonList[i].height)
-// 	if (pokemonList[i].height >= 7) {
-// 		document.write(
-// 			JSON.stringify(pokemonList[i].name) + "  You're big!!!!" + '<br><br>'
-// 		)
-// 	}
-// 	if (pokemonList[i].types[0] === 'telekinesis') {
-// 		document.write(
-// 			JSON.stringify(pokemonList[i].name) +
-// 				"  I'm a huge fan of Eleven from Stranger Things!!!!!" +
-// 				'<br><br>'
-// 		)
-// 	}
-// 	// document.body.innerHTML += JSON.stringify(pokemonList[i]) + '<br>'
-// }
-
-// refactor the above to forEach loop
-iifePokemonList.getAll().forEach(function (pokemon) {
+pokemonRepository.getAll().forEach(function (pokemon) {
 	document.write(
 		JSON.stringify(pokemon.name) +
 			'<br>' +
@@ -68,14 +52,3 @@ iifePokemonList.getAll().forEach(function (pokemon) {
 			'<br><br>'
 	)
 })
-// list = iifePokemonList.getAll()
-// list.forEach(function (pokemon) {
-// 	document.write(
-// 		JSON.stringify(pokemon.name) +
-// 			'<br>' +
-// 			JSON.stringify(pokemon.height) +
-// 			'<br>' +
-// 			JSON.stringify(pokemon.types) +
-// 			'<br><br>'
-// 	)
-// })
