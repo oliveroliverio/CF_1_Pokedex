@@ -1,6 +1,16 @@
-let pokemonList = []
+let iifePokemonList = (function () {
+	let pokemonList = []
+	return {
+		add: function (pokemon) {
+			pokemonList.push(pokemon)
+		},
+		getAll: function () {
+			return pokemonList
+		},
+	}
+})()
 
-pokemonList.push({
+iifePokemonList.add({
 	name: 'Bulbasaur',
 	height: 7,
 	types: ['grass', 'poison'],
@@ -27,7 +37,7 @@ let Dinosauuuurr = {
 	types: ['veryStrong', 'green'],
 }
 
-pokemonList.push(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
+iifePokemonList.add(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
 
 // for (let i = 0; i < pokemonList.length; i++) {
 // 	// console.log(pokemonList[i])
@@ -48,7 +58,7 @@ pokemonList.push(Charmeleon, Pikachu, MewToo, Dinosauuuurr)
 // }
 
 // refactor the above to forEach loop
-pokemonList.forEach(function (pokemon) {
+iifePokemonList.getAll().forEach(function (pokemon) {
 	document.write(
 		JSON.stringify(pokemon.name) +
 			'<br>' +
@@ -58,3 +68,14 @@ pokemonList.forEach(function (pokemon) {
 			'<br><br>'
 	)
 })
+// list = iifePokemonList.getAll()
+// list.forEach(function (pokemon) {
+// 	document.write(
+// 		JSON.stringify(pokemon.name) +
+// 			'<br>' +
+// 			JSON.stringify(pokemon.height) +
+// 			'<br>' +
+// 			JSON.stringify(pokemon.types) +
+// 			'<br><br>'
+// 	)
+// })
