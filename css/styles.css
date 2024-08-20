@@ -16,3 +16,9 @@
   .pokemon-button:hover {
     background-color: #45a049; /* Darker green on hover */
   }
+
+  @media (max-width: 600px) {
+    .pokemon-button {
+      width: 100%;
+    }
+  }
