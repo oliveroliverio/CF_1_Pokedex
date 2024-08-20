@@ -17,19 +17,14 @@ let pokemonRepository = (function () {
 		let listItem = document.createElement('li')
 		let button = document.createElement('button')
 		let pokemonUl = document.querySelector('.pokemon-list')
-
 		// set innerText of button to pokemon
 		button.innerText = pokemon.name + '\nHeight ' + pokemon.height
-
 		// add custom class to button
 		button.classList.add('pokemon-button')
-
 		// append the button to listItem
 		listItem.appendChild(button)
-
 		// append the list item to the ul element
 		pokemonUl.appendChild(listItem)
-
 		// add event listener to button that console logs pokemon.name when clicked.
 		button.addEventListener('click', function () {
 			console.log(pokemon.name)
@@ -53,6 +48,22 @@ let pokemonRepository = (function () {
 				console.error(e)
 			})
 	}
+	function loadDetails(item) {
+		let url = item.detailsUrl
+		return fetch(url)
+			.then(function (response) {
+				return response.json()
+			})
+			.then(function (details) {
+				// Now we add the details to the item
+				item.imageUrl = details.sprites.front_default
+				item.height = details.height
+				item.types = details.types
+			})
+			.catch(function (e) {
+				console.error(e)
+			})
+	}
 
 	return {
 		add: add,
@@ -60,6 +71,7 @@ let pokemonRepository = (function () {
 		showDetails: showDetails,
 		addListItem: addListItem,
 		loadList: loadList,
+		loadDetails: loadDetails,
 	}
 })()
 
@@ -100,6 +112,7 @@ Object.values(pokemonData).forEach(function (pokemon) {
 // 	pokemonRepository.addListItem(pokemon)
 // })
 
+// get pokemon from api and display on page.
 pokemonRepository.loadList().then(function () {
 	// Now the data is loaded!
 	pokemonRepository.getAll().forEach(function (pokemon) {
