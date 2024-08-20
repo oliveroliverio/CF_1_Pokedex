@@ -22,3 +22,8 @@
       width: 100%;
     }
   }
+
+
+  .pokemon-list {
+    list-style: none;
+  }
