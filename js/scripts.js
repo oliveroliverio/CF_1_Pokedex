@@ -11,6 +11,7 @@ let pokemonRepository = (function () {
 			// console.log(pokemon.name)
 			let listItem = document.createElement('li')
 			let button = document.createElement('button')
+			let pokemonUl = document.querySelector('.pokemon-list')
 
 			// set innerText of button to pokemon
 			button.innerText = pokemon.name + '\nHeight ' + pokemon.height
@@ -59,8 +60,16 @@ Object.values(pokemonData).forEach(function (pokemon) {
 	pokemonRepository.add(pokemon)
 })
 
-let pokemonUl = document.querySelector('.pokemon-list')
-
+// display pokemon to page
 pokemonRepository.getAll().forEach(function (pokemon) {
 	pokemonRepository.addListItem(pokemon)
+
+	// add event listener to button that console logs pokemon.name when clicked.
+	document
+		.querySelector('.pokemon-button')
+		.addEventListener('click', function () {
+			console.log(pokemon.name)
+		})
 })
+
+//
