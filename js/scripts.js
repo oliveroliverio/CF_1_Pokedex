@@ -7,6 +7,23 @@ let pokemonRepository = (function () {
 		getAll: function () {
 			return pokemonList
 		},
+		addListItem: function (pokemon) {
+			// console.log(pokemon.name)
+			let listItem = document.createElement('li')
+			let button = document.createElement('button')
+
+			// set innerText of button to pokemon
+			button.innerText = pokemon.name + '\nHeight ' + pokemon.height
+
+			// add custom class to button
+			button.classList.add('pokemon-button')
+
+			// append the button to listItem
+			listItem.appendChild(button)
+
+			// append the list item to the ul element
+			pokemonUl.appendChild(listItem)
+		},
 	}
 })()
 
@@ -45,19 +62,5 @@ Object.values(pokemonData).forEach(function (pokemon) {
 let pokemonUl = document.querySelector('.pokemon-list')
 
 pokemonRepository.getAll().forEach(function (pokemon) {
-	// console.log(pokemon.name)
-	let listItem = document.createElement('li')
-	let button = document.createElement('button')
-
-	// set innerText of button to pokemon
-	button.innerText = pokemon.name + '\nHeight ' + pokemon.height
-
-	// add custom class to button
-	button.classList.add('pokemon-button')
-
-	// append the button to listItem
-	listItem.appendChild(button)
-
-	// append the list item to the ul element
-	pokemonUl.appendChild(listItem)
+	pokemonRepository.addListItem(pokemon)
 })
