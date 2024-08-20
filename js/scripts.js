@@ -7,6 +7,9 @@ let pokemonRepository = (function () {
 		getAll: function () {
 			return pokemonList
 		},
+		showDetails: function (pokemon) {
+			console.log(pokemon.name)
+		},
 		addListItem: function (pokemon) {
 			// console.log(pokemon.name)
 			let listItem = document.createElement('li')
@@ -24,6 +27,11 @@ let pokemonRepository = (function () {
 
 			// append the list item to the ul element
 			pokemonUl.appendChild(listItem)
+
+			// add event listener to button that console logs pokemon.name when clicked.
+			button.addEventListener('click', function () {
+				console.log(pokemon.name)
+			})
 		},
 	}
 })()
@@ -63,13 +71,4 @@ Object.values(pokemonData).forEach(function (pokemon) {
 // display pokemon to page
 pokemonRepository.getAll().forEach(function (pokemon) {
 	pokemonRepository.addListItem(pokemon)
-
-	// add event listener to button that console logs pokemon.name when clicked.
-	document
-		.querySelector('.pokemon-button')
-		.addEventListener('click', function () {
-			console.log(pokemon.name)
-		})
 })
-
-//
