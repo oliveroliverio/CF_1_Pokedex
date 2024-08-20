@@ -11,12 +11,114 @@
 			rel="stylesheet"
 			href="./css/styles.css"
 		/>
+		<style>
+			.form-group {
+				margin-bottom: 15px;
+			}
+			label {
+				display: block;
+				margin-bottom: 5px;
+				font-weight: bold;
+			}
+			input[type='text'],
+			textarea,
+			select {
+				width: 100%;
+				padding: 8px;
+				margin: 4px 0;
+				box-sizing: border-box;
+			}
+			input[type='checkbox'],
+			input[type='radio'] {
+				margin-right: 10px;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- html -->
 		<h1></h1>
 
 		<div class="container"><ul class="pokemon-list"></ul></div>
+
+		<h1>Sample Form</h1>
+
+		<form id="sampleForm">
+			<!-- Text Input -->
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input
+					type="text"
+					id="username"
+					name="username"
+					placeholder="Enter your username"
+				/>
+			</div>
+
+			<!-- Textarea -->
+			<div class="form-group">
+				<label for="bio">Bio:</label>
+				<textarea
+					id="bio"
+					name="bio"
+					rows="4"
+					placeholder="Tell us about yourself"
+				></textarea>
+			</div>
+
+			<!-- Checkbox -->
+			<div class="form-group">
+				<label>Subscribe to newsletter:</label>
+				<input
+					type="checkbox"
+					id="subscribe"
+					name="subscribe"
+					value="newsletter"
+				/>
+				<label for="subscribe">Yes, I want to subscribe</label>
+			</div>
+
+			<!-- Radio Buttons -->
+			<div class="form-group">
+				<label>Age Group:</label>
+				<input
+					type="radio"
+					id="child"
+					name="age-group"
+					value="child"
+				/>
+				<label for="child">Child</label>
+				<input
+					type="radio"
+					id="adult"
+					name="age-group"
+					value="adult"
+				/>
+				<label for="adult">Adult</label>
+				<input
+					type="radio"
+					id="elder"
+					name="age-group"
+					value="elder"
+				/>
+				<label for="elder">Elder</label>
+			</div>
+
+			<!-- Select Dropdown -->
+			<div class="form-group">
+				<label for="gender">Gender:</label>
+				<select
+					id="gender"
+					name="gender"
+				>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+					<option value="other">Other</option>
+				</select>
+			</div>
+
+			<!-- Submit Button -->
+			<button type="submit">Submit</button>
+		</form>
 
 		<script src="js/scripts.js"></script>
 	</body>
