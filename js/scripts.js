@@ -1,6 +1,7 @@
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
 let pokemonRepository = (function () {
 	let pokemonList = []
+	let pokemonHeights = []
 	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150'
 
 	// functions list separate from return
@@ -20,22 +21,19 @@ let pokemonRepository = (function () {
 		let pokemonUl = document.querySelector('.pokemon-list')
 		// set innerText of button to pokemon
 
-		// getting height details from loadDetails function
+		loadDetails(pokemon).then(function () {
+			button.innerText = pokemon.name + '\nHeight ' + pokemon.height
 
-		let details = loadDetails(pokemon)
-
-		let height = details.height
-		button.innerText = pokemon.name + '\nHeight ' + height
-
-		// add custom class to button
-		button.classList.add('pokemon-button')
-		// append the button to listItem
-		listItem.appendChild(button)
-		// append the list item to the ul element
-		pokemonUl.appendChild(listItem)
-		// add event listener ``to button that console logs pokemon.name when clicked.
-		button.addEventListener('click', function () {
-			console.log(pokemon.name)
+			// add custom class to button
+			button.classList.add('pokemon-button')
+			// append the button to listItem
+			listItem.appendChild(button)
+			// append the list item to the ul element
+			pokemonUl.appendChild(listItem)
+			// add event listener ``to button that console logs pokemon.name when clicked.
+			button.addEventListener('click', function () {
+				console.log(pokemon.name)
+			})
 		})
 	}
 	function loadList() {
@@ -80,6 +78,9 @@ let pokemonRepository = (function () {
 		addListItem: addListItem,
 		loadList: loadList,
 		loadDetails: loadDetails,
+		getHeights: function () {
+			return pokemonHeights
+		},
 	}
 })()
 // sample pokemon data
@@ -111,11 +112,13 @@ let pokemonData = {
 	},
 }
 
-pokemonRepository.loadList().then(function () {
-	// Now the data is loaded!
-	console.log(pokemonRepository.getAll())
-	pokemonRepository.getAll().forEach(function (pokemon) {
-		pokemonRepository.addListItem(pokemon)
+document.addEventListener('DOMContentLoaded', function () {
+	pokemonRepository.loadList().then(function () {
+		// Now the data is loaded!
+		console.log(pokemonRepository.getAll())
+		pokemonRepository.getAll().forEach(function (pokemon) {
+			pokemonRepository.addListItem(pokemon)
+		})
 	})
 })
 
