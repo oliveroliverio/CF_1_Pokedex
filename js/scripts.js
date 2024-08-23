@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 let pokemonRepository = (function () {
 	let pokemonList = []
 	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150'
@@ -9,7 +10,7 @@ let pokemonRepository = (function () {
 	function getAll() {
 		return pokemonList
 	}
-	function showDetails(pokemon) {
+	function showName(pokemon) {
 		console.log(pokemon.name)
 	}
 	function addListItem(pokemon) {
@@ -18,14 +19,21 @@ let pokemonRepository = (function () {
 		let button = document.createElement('button')
 		let pokemonUl = document.querySelector('.pokemon-list')
 		// set innerText of button to pokemon
-		button.innerText = pokemon.name + '\nHeight ' + pokemon.height
+
+		// getting height details from loadDetails function
+
+		let details = loadDetails(pokemon)
+
+		let height = details.height
+		button.innerText = pokemon.name + '\nHeight ' + height
+
 		// add custom class to button
 		button.classList.add('pokemon-button')
 		// append the button to listItem
 		listItem.appendChild(button)
 		// append the list item to the ul element
 		pokemonUl.appendChild(listItem)
-		// add event listener to button that console logs pokemon.name when clicked.
+		// add event listener ``to button that console logs pokemon.name when clicked.
 		button.addEventListener('click', function () {
 			console.log(pokemon.name)
 		})
@@ -68,13 +76,13 @@ let pokemonRepository = (function () {
 	return {
 		add: add,
 		getAll: getAll,
-		showDetails: showDetails,
+		showName: showName,
 		addListItem: addListItem,
 		loadList: loadList,
 		loadDetails: loadDetails,
 	}
 })()
-
+// sample pokemon data
 let pokemonData = {
 	Bulbasaur: {
 		name: 'Bulbasaur',
@@ -103,9 +111,9 @@ let pokemonData = {
 	},
 }
 // access values of the object so as to pass through forEach loop
-Object.values(pokemonData).forEach(function (pokemon) {
-	pokemonRepository.add(pokemon)
-})
+// Object.values(pokemonData).forEach(function (pokemon) {
+// 	pokemonRepository.add(pokemon)
+// })
 
 // // display pokemon to page
 // pokemonRepository.getAll().forEach(function (pokemon) {
@@ -119,3 +127,11 @@ pokemonRepository.loadList().then(function () {
 		pokemonRepository.addListItem(pokemon)
 	})
 })
+
+const getPokemonStuff = async () => {
+	const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=150')
+	const data = await res.json()
+	console.log(data)
+}
+
+getPokemonStuff()
