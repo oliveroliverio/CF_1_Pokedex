@@ -24,6 +24,21 @@
     transition: background-color 0.3s ease; /* Smooth transition for hover */
   }
 
+  .pokemon-button-static {
+    background-color: #483d8b; /* Green background */
+    border: none;              /* Remove borders */
+    color: white;              /* White text */
+    padding: 10px 20px;        /* Some padding */
+    text-align: center;        /* Center the text */
+    text-decoration: none;     /* Remove underline */
+    display: inline-block;     /* Make the button inline-block */
+    font-size: 16px;           /* Increase font size */
+    margin: 4px 2px;           /* Add some margins */
+    cursor: pointer;           /* Pointer/hand icon */
+    border-radius: 5px;        /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+  }
+
   .pokemon-button:hover {
     background-color: #45a049; /* Darker green on hover */
   }

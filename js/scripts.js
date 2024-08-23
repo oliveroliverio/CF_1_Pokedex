@@ -36,6 +36,9 @@ let pokemonRepository = (function () {
 			})
 		})
 	}
+	function showDetails() {
+		loadDetails(pokemon)
+	}
 	function loadList() {
 		return fetch(apiUrl)
 			.then(function (response) {
@@ -78,9 +81,7 @@ let pokemonRepository = (function () {
 		addListItem: addListItem,
 		loadList: loadList,
 		loadDetails: loadDetails,
-		getHeights: function () {
-			return pokemonHeights
-		},
+		showDetails: showDetails,
 	}
 })()
 // sample pokemon data
@@ -111,6 +112,11 @@ let pokemonData = {
 		types: ['veryStrong', 'green'],
 	},
 }
+
+// populate static data
+Object.values(pokemonData).forEach(function (pokemon) {
+	pokemonRepository.add(pokemon)
+})
 
 document.addEventListener('DOMContentLoaded', function () {
 	pokemonRepository.loadList().then(function () {
