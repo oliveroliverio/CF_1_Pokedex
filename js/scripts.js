@@ -64,7 +64,7 @@ let pokemonRepository = (function () {
 			})
 			.then(function (details) {
 				// Now we add the details to the item
-				item.imageUrl = details.sprites.front_default
+				// item.imageUrl = details.sprites.front_default
 				item.height = details.height
 				item.types = details.types
 			})
@@ -110,28 +110,19 @@ let pokemonData = {
 		types: ['veryStrong', 'green'],
 	},
 }
-// access values of the object so as to pass through forEach loop
-// Object.values(pokemonData).forEach(function (pokemon) {
-// 	pokemonRepository.add(pokemon)
-// })
 
-// // display pokemon to page
-// pokemonRepository.getAll().forEach(function (pokemon) {
-// 	pokemonRepository.addListItem(pokemon)
-// })
-
-// get pokemon from api and display on page.
 pokemonRepository.loadList().then(function () {
 	// Now the data is loaded!
+	console.log(pokemonRepository.getAll())
 	pokemonRepository.getAll().forEach(function (pokemon) {
 		pokemonRepository.addListItem(pokemon)
 	})
 })
 
-const getPokemonStuff = async () => {
-	const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=150')
-	const data = await res.json()
-	console.log(data)
-}
+// const getPokemonStuff = async () => {
+// 	const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=150')
+// 	const data = await res.json()
+// 	console.log(data)
+// }
 
-getPokemonStuff()
+// getPokemonStuff()
