@@ -73,6 +73,15 @@ let pokemonRepository = (function () {
 				console.error(e)
 			})
 	}
+	function addNewItem() {
+		// console.log(pokemon.name)
+		let newDiv = document.createElement('div')
+		let otherButton = document.createElement('button')
+		otherButton.innerText = 'asdfasdf'
+		otherButton.classList.add('other-button')
+		newDiv.appendChild(otherButton)
+		document.body.appendChild(newDiv)
+	}
 
 	return {
 		add: add,
@@ -82,6 +91,7 @@ let pokemonRepository = (function () {
 		loadList: loadList,
 		loadDetails: loadDetails,
 		showDetails: showDetails,
+		addNewItem: addNewItem,
 	}
 })()
 // sample pokemon data
@@ -127,14 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		})
 	})
 })
-
-// const getPokemonStuff = async () => {
-// 	const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=150')
-// 	const data = await res.json()
-// 	console.log(data)
-// }
-
-// getPokemonStuff()
 
 function validateEmail() {
 	let value = emailInput.value
