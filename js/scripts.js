@@ -1,7 +1,6 @@
 // import fetch from 'node-fetch'
 let pokemonRepository = (function () {
 	let pokemonList = []
-	let pokemonHeights = []
 	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150'
 
 	// functions list separate from return
@@ -15,30 +14,37 @@ let pokemonRepository = (function () {
 		console.log(pokemon.name)
 	}
 	function addListItem(pokemon) {
-		// console.log(pokemon.name)
-		let listItem = document.createElement('li')
-		let button = document.createElement('button')
-		let pokemonUl = document.querySelector('.pokemon-list')
-		// set innerText of button to pokemon
+		// Ensure these elements are properly initialized
+		const button = document.createElement('button')
+		const listItem = document.createElement('li')
+		const pokemonUl = document.querySelector('#pokemon-ul') // Assuming the ul has an id of 'pokemon-ul'
 
-		loadDetails(pokemon).then(function () {
-			button.innerText = pokemon.name
+		if (button && listItem && pokemonUl) {
+			loadDetails(pokemon)
+				.then(function () {
+					button.innerText = pokemon.name
 
-			// add custom class to button
-			button.classList.add('pokemon-button')
-			// append the button to listItem
-			listItem.appendChild(button)
-			// append the list item to the ul element
-			pokemonUl.appendChild(listItem)
-			// add event listener ``to button that displays details in modal
-			button.addEventListener('click', function () {
-				// console.log(pokemon.height)
-				showModal(pokemon.name, pokemon.height)
-			})
-		})
+					// add custom class to button
+					button.classList.add('pokemon-button')
+					// append the button to listItem
+					listItem.appendChild(button)
+					// append the list item to the ul element
+					pokemonUl.appendChild(listItem)
+					// add event listener to button that displays details in modal
+					button.addEventListener('click', () => {
+						// console.log(pokemon.height)
+						showDetails(pokemon)
+					})
+				})
+				.catch(function (error) {
+					console.error('Error loading details:', error)
+				})
+		} else {
+			console.error('Error: One or more elements are null.')
+		}
 	}
-	function showDetails() {
-		loadDetails(pokemon)
+	function showDetails(pokemon) {
+		showModal(pokemon.name, `Height: ${pokemon.height}`)
 	}
 	function loadList() {
 		return fetch(apiUrl)
@@ -83,6 +89,38 @@ let pokemonRepository = (function () {
 		otherButton.classList.add('other-button')
 		newDiv.appendChild(otherButton)
 		document.body.appendChild(newDiv)
+	}
+	function showModal(title, text) {
+		let modalContainer = document.querySelector('#modal-container')
+
+		// Clear all existing modal content
+		modalContainer.innerHTML = ''
+
+		let modal = document.createElement('div')
+		modal.classList.add('modal')
+
+		// Add the new modal content
+		let closeButtonElement = document.createElement('button')
+		closeButtonElement.classList.add('modal-close')
+		closeButtonElement.innerText = 'Close'
+
+		let titleElement = document.createElement('h1')
+		titleElement.innerText = title
+
+		let contentElement = document.createElement('p')
+		contentElement.innerText = text
+
+		modal.appendChild(closeButtonElement)
+		modal.appendChild(titleElement)
+		modal.appendChild(contentElement)
+		modalContainer.appendChild(modal)
+
+		modalContainer.classList.add('is-visible')
+
+		// Add event listener to close the modal
+		closeButtonElement.addEventListener('click', () => {
+			modalContainer.classList.remove('is-visible')
+		})
 	}
 
 	return {
@@ -168,40 +206,3 @@ function validateForm() {
 	let isValidPassword = validatePassword()
 	return isValidEmail && isValidPassword
 }
-
-function showModal(title, text) {
-	let modalContainer = document.querySelector('#modal-container')
-
-	// Clear all existing modal content
-	modalContainer.innerHTML = ''
-
-	let modal = document.createElement('div')
-	modal.classList.add('modal')
-
-	// Add the new modal content
-	let closeButtonElement = document.createElement('button')
-	closeButtonElement.classList.add('modal-close')
-	closeButtonElement.innerText = 'Close'
-
-	let titleElement = document.createElement('h1')
-	titleElement.innerText = title
-
-	let contentElement = document.createElement('p')
-	contentElement.innerText = text
-
-	modal.appendChild(closeButtonElement)
-	modal.appendChild(titleElement)
-	modal.appendChild(contentElement)
-	modalContainer.appendChild(modal)
-
-	modalContainer.classList.add('is-visible')
-
-	// Add event listener to close the modal
-	closeButtonElement.addEventListener('click', () => {
-		modalContainer.classList.remove('is-visible')
-	})
-}
-
-// document.querySelector('#show-modal').addEventListener('click', () => {
-// 	showModal('Modal title', 'This is the modal content!')
-// })
