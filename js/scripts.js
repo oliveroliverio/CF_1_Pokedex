@@ -94,6 +94,7 @@ let pokemonRepository = (function () {
 		loadDetails: loadDetails,
 		showDetails: showDetails,
 		addNewItem: addNewItem,
+		showModal: showModal,
 	}
 })()
 
