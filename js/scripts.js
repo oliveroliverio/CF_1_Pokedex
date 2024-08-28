@@ -22,7 +22,7 @@ let pokemonRepository = (function () {
 		// set innerText of button to pokemon
 
 		loadDetails(pokemon).then(function () {
-			button.innerText = pokemon.name + '\nHeight ' + pokemon.height
+			button.innerText = pokemon.name
 
 			// add custom class to button
 			button.classList.add('pokemon-button')
@@ -30,9 +30,10 @@ let pokemonRepository = (function () {
 			listItem.appendChild(button)
 			// append the list item to the ul element
 			pokemonUl.appendChild(listItem)
-			// add event listener ``to button that console logs pokemon.name when clicked.
+			// add event listener ``to button that displays details in modal
 			button.addEventListener('click', function () {
-				console.log(pokemon.name)
+				// console.log(pokemon.height)
+				showModal(pokemon.name, pokemon.height)
 			})
 		})
 	}
@@ -57,6 +58,7 @@ let pokemonRepository = (function () {
 				console.error(e)
 			})
 	}
+	// returns .height and types
 	function loadDetails(item) {
 		let url = item.detailsUrl
 		return fetch(url)
@@ -94,49 +96,12 @@ let pokemonRepository = (function () {
 		addNewItem: addNewItem,
 	}
 })()
-// sample pokemon data
-let pokemonData = {
-	Bulbasaur: {
-		name: 'Bulbasaur',
-		height: 7,
-		types: ['trees', 'green'],
-	},
-	Charmeleon: {
-		name: 'Charmeleon',
-		height: 3,
-		types: ['fire', 'orange'],
-	},
-	Pikachu: {
-		name: 'Pikachu',
-		height: 5,
-		types: ['lightning', 'yellow'],
-	},
-	MewToo: {
-		name: 'MewToo',
-		height: 3,
-		types: ['telekinesis', 'purple'],
-	},
-	Dinosauuuurr: {
-		name: 'Dinosauuur',
-		height: 8,
-		types: ['veryStrong', 'green'],
-	},
-}
 
-// populate static data
-Object.values(pokemonData).forEach(function (pokemon) {
-	pokemonRepository.add(pokemon)
+pokemonRepository.loadList().then(function () {
+	pokemonRepository.getAll().forEach(function (pokemon) {
+		pokemonRepository.addListItem(pokemon)
+	})
 })
-
-// document.addEventListener('DOMContentLoaded', function () {
-// 	pokemonRepository.loadList().then(function () {
-// 		// Now the data is loaded!
-// 		console.log(pokemonRepository.getAll())
-// 		pokemonRepository.getAll().forEach(function (pokemon) {
-// 			pokemonRepository.addListItem(pokemon)
-// 		})
-// 	})
-// })
 
 function validateEmail() {
 	let value = emailInput.value
@@ -236,6 +201,6 @@ function showModal(title, text) {
 	})
 }
 
-document.querySelector('#show-modal').addEventListener('click', () => {
-	showModal('Modal title', 'This is the modal content!')
-})
+// document.querySelector('#show-modal').addEventListener('click', () => {
+// 	showModal('Modal title', 'This is the modal content!')
+// })
