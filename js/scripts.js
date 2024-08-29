@@ -206,3 +206,6 @@ function validateForm() {
 	let isValidPassword = validatePassword()
 	return isValidEmail && isValidPassword
 }
+
+let newElement = $('<div class="new-class">Content is here!</div>')
+$('body').append(newElement)
