@@ -44,7 +44,18 @@ let pokemonRepository = (function () {
 		}
 	}
 	function showDetails(pokemon) {
-		showModal(pokemon.name, `Height: ${pokemon.height}`)
+		// Populate modal content
+		const modalTitle = document.querySelector('#pokemonModalLabel')
+		const modalBody = document.querySelector('.modal-body')
+
+		modalTitle.innerText = pokemon.name
+		modalBody.innerHTML = `
+			<p>Height: ${pokemon.height}</p>
+			<p>Types: ${pokemon.types.map((typeInfo) => typeInfo.type.name).join(', ')}</p>
+		`
+
+		// Show the modal
+		$('#pokemonModal').modal('show')
 	}
 	function loadList() {
 		return fetch(apiUrl)
@@ -90,38 +101,38 @@ let pokemonRepository = (function () {
 		newDiv.appendChild(otherButton)
 		document.body.appendChild(newDiv)
 	}
-	function showModal(title, text) {
-		let modalContainer = document.querySelector('#modal-container')
+	// function showModal(title, text) {
+	// 	let modalContainer = document.querySelector('#modal-container')
 
-		// Clear all existing modal content
-		modalContainer.innerHTML = ''
+	// 	// Clear all existing modal content
+	// 	modalContainer.innerHTML = ''
 
-		let modal = document.createElement('div')
-		modal.classList.add('modal')
+	// 	let modal = document.createElement('div')
+	// 	modal.classList.add('modal')
 
-		// Add the new modal content
-		let closeButtonElement = document.createElement('button')
-		closeButtonElement.classList.add('modal-close')
-		closeButtonElement.innerText = 'Close'
+	// 	// Add the new modal content
+	// 	let closeButtonElement = document.createElement('button')
+	// 	closeButtonElement.classList.add('modal-close')
+	// 	closeButtonElement.innerText = 'Close'
 
-		let titleElement = document.createElement('h1')
-		titleElement.innerText = title
+	// 	let titleElement = document.createElement('h1')
+	// 	titleElement.innerText = title
 
-		let contentElement = document.createElement('p')
-		contentElement.innerText = text
+	// 	let contentElement = document.createElement('p')
+	// 	contentElement.innerText = text
 
-		modal.appendChild(closeButtonElement)
-		modal.appendChild(titleElement)
-		modal.appendChild(contentElement)
-		modalContainer.appendChild(modal)
+	// 	modal.appendChild(closeButtonElement)
+	// 	modal.appendChild(titleElement)
+	// 	modal.appendChild(contentElement)
+	// 	modalContainer.appendChild(modal)
 
-		modalContainer.classList.add('is-visible')
+	// 	modalContainer.classList.add('is-visible')
 
-		// Add event listener to close the modal
-		closeButtonElement.addEventListener('click', () => {
-			modalContainer.classList.remove('is-visible')
-		})
-	}
+	// 	// Add event listener to close the modal
+	// 	closeButtonElement.addEventListener('click', () => {
+	// 		modalContainer.classList.remove('is-visible')
+	// 	})
+	// }
 
 	return {
 		add: add,
@@ -132,7 +143,7 @@ let pokemonRepository = (function () {
 		loadDetails: loadDetails,
 		showDetails: showDetails,
 		addNewItem: addNewItem,
-		showModal: showModal,
+		// showModal: showModal,
 	}
 })()
 
