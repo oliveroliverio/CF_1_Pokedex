@@ -17,7 +17,7 @@ let pokemonRepository = (function () {
 		// Ensure these elements are properly initialized
 		const button = document.createElement('button')
 		const listItem = document.createElement('li')
-		const pokemonUl = document.querySelector('#pokemon-ul') // Assuming the ul has an id of 'pokemon-ul'
+		const pokemonUl = document.querySelector('#list-group-item') // Assuming the ul has an id of 'pokemon-ul'
 
 		if (button && listItem && pokemonUl) {
 			loadDetails(pokemon)
@@ -207,5 +207,5 @@ function validateForm() {
 	return isValidEmail && isValidPassword
 }
 
-let newElement = $('<div class="new-class">Content is here!</div>')
-$('body').append(newElement)
+// let newElement = $('<div class="new-class">Content is here!</div>')
+// $('body').append(newElement)
