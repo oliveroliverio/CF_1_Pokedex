@@ -25,7 +25,7 @@ let pokemonRepository = (function () {
 					button.innerText = pokemon.name
 
 					// add custom class to button
-					button.classList.add('btn', 'btn-primary')
+					button.classList.add('btn', 'btn-primary', 'mb-2')
 					// append the button to listItem
 					listItem.appendChild(button)
 					// append the list item to the ul element
