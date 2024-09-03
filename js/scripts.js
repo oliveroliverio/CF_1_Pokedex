@@ -17,15 +17,36 @@ let pokemonRepository = (function () {
 	}
 	function addListItem(pokemon) {
 		// Ensure these elements are properly initialized
+		// add card
+		let card = document.createElement('div')
+		let cardBody = document.createElement('div')
+		let cardTitle = document.createElement('h5')
+		let cardText = document.createElement('p')
+		let listItem = document.createElement('li')
 		const button = document.createElement('button')
-		const listItem = document.createElement('li')
 		const pokemonUl = document.querySelector('#list-group-item') // Assuming the ul has an id of 'pokemon-ul'
 
 		if (button && listItem && pokemonUl) {
 			loadDetails(pokemon)
 				.then(function () {
-					button.innerText = pokemon.name
-
+					// set cardTitle to pokemon.name
+					cardTitle.innerText = pokemon.name
+					// set cardText to pokemon.height
+					cardText.innerText = 'Height: ' + pokemon.height
+					// add bootstrap classes to card
+					card.classList.add('card')
+					cardBody.classList.add('card-body')
+					cardTitle.classList.add('card-title')
+					cardText.classList.add('card-text')
+					// append cardTitle and cardText to cardBody
+					cardBody.appendChild(cardTitle)
+					cardBody.appendChild(cardText)
+					// append cardBody to card
+					card.appendChild(cardBody)
+					// append card to listItem
+					listItem.appendChild(card)
+					// set innerText of button to pokemon
+					button.innerText = 'Details'
 					// add custom class to button
 					button.classList.add('btn', 'btn-primary', 'mb-2')
 					// append the button to listItem
@@ -109,15 +130,6 @@ let pokemonRepository = (function () {
 				console.error(e)
 			})
 	}
-	function addNewItem() {
-		// console.log(pokemon.name)
-		let newDiv = document.createElement('div')
-		let otherButton = document.createElement('button')
-		otherButton.innerText = 'asdfasdf'
-		otherButton.classList.add('other-button')
-		newDiv.appendChild(otherButton)
-		document.body.appendChild(newDiv)
-	}
 
 	return {
 		add: add,
@@ -127,7 +139,6 @@ let pokemonRepository = (function () {
 		loadList: loadList,
 		loadDetails: loadDetails,
 		showDetails: showDetails,
-		addNewItem: addNewItem,
 		addImg: addImg,
 	}
 })()
@@ -136,6 +147,6 @@ pokemonRepository.loadList().then(function () {
 	pokemonRepository.getAll().forEach(function (pokemon) {
 		pokemonRepository.addListItem(pokemon)
 		// addimage
-		pokemonRepository.addImg(pokemon)
+		// pokemonRepository.addImg(pokemon)
 	})
 })

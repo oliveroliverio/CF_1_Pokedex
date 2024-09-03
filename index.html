@@ -25,15 +25,36 @@
 	</head>
 	<body>
 		<!-- html -->
-
-		<div class="container"
-			><ul class="list-group list-unstyled">
-				<li id="list-group-item"></li> </ul
-		></div>
-		<div class="container2">
-			<ul>
-				<li class="pokemon-list"></li>
-			</ul>
+		<!-- navbar with title Pokedex and a search input on right -->
+		<nav class="navbar navbar-light bg-light">
+			<a
+				class="navbar-brand"
+				href="#"
+				>Pokedex</a
+			>
+			<form class="form-inline">
+				<input
+					class="form-control mr-sm-2"
+					type="search"
+					placeholder="Search"
+					aria-label="Search"
+				/>
+				<button
+					class="btn btn-outline-success my-2 my-sm-0"
+					type="submit"
+				>
+					Search
+				</button>
+			</form>
+		</nav>
+		<!-- main body -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="list-group list-unstyled">
+						<li id="list-group-item"></li> </ul
+				></div>
+			</div>
 		</div>
 
 		<!-- <div id="modal-container"></div> -->
