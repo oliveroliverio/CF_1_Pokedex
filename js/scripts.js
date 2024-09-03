@@ -2,6 +2,8 @@
 let pokemonRepository = (function () {
 	let pokemonList = []
 	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150'
+	let imageUrl =
+		'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
 	// functions list separate from return
 	function add(pokemon) {
@@ -64,9 +66,12 @@ let pokemonRepository = (function () {
 			})
 			.then(function (json) {
 				json.results.forEach(function (item) {
+					// function to parse detailsUrl and grab the id
+					let pokeid = item.url.split('/')[6]
 					let pokemon = {
 						name: item.name,
 						detailsUrl: item.url,
+						id: pokeid,
 					}
 					add(pokemon)
 				})
@@ -74,6 +79,18 @@ let pokemonRepository = (function () {
 			.catch(function (e) {
 				console.error(e)
 			})
+	}
+	function addImg(pokemon) {
+		// get image from imageUrl + pokemon.id
+		let img = document.createElement('img')
+		let listItem = document.createElement('li')
+		let pokemonUl = document.querySelector('.pokemon-list')
+		console.log(pokemon.id)
+		img.src = imageUrl + pokemon.id + '.png'
+		// append image to listItem
+		listItem.appendChild(img)
+		// append the list item to the ul element
+		pokemonUl.appendChild(listItem)
 	}
 	// returns .height and types
 	function loadDetails(item) {
@@ -101,38 +118,6 @@ let pokemonRepository = (function () {
 		newDiv.appendChild(otherButton)
 		document.body.appendChild(newDiv)
 	}
-	// function showModal(title, text) {
-	// 	let modalContainer = document.querySelector('#modal-container')
-
-	// 	// Clear all existing modal content
-	// 	modalContainer.innerHTML = ''
-
-	// 	let modal = document.createElement('div')
-	// 	modal.classList.add('modal')
-
-	// 	// Add the new modal content
-	// 	let closeButtonElement = document.createElement('button')
-	// 	closeButtonElement.classList.add('modal-close')
-	// 	closeButtonElement.innerText = 'Close'
-
-	// 	let titleElement = document.createElement('h1')
-	// 	titleElement.innerText = title
-
-	// 	let contentElement = document.createElement('p')
-	// 	contentElement.innerText = text
-
-	// 	modal.appendChild(closeButtonElement)
-	// 	modal.appendChild(titleElement)
-	// 	modal.appendChild(contentElement)
-	// 	modalContainer.appendChild(modal)
-
-	// 	modalContainer.classList.add('is-visible')
-
-	// 	// Add event listener to close the modal
-	// 	closeButtonElement.addEventListener('click', () => {
-	// 		modalContainer.classList.remove('is-visible')
-	// 	})
-	// }
 
 	return {
 		add: add,
@@ -143,80 +128,14 @@ let pokemonRepository = (function () {
 		loadDetails: loadDetails,
 		showDetails: showDetails,
 		addNewItem: addNewItem,
-		// showModal: showModal,
+		addImg: addImg,
 	}
 })()
 
 pokemonRepository.loadList().then(function () {
 	pokemonRepository.getAll().forEach(function (pokemon) {
 		pokemonRepository.addListItem(pokemon)
+		// addimage
+		pokemonRepository.addImg(pokemon)
 	})
 })
-
-function validateEmail() {
-	let value = emailInput.value
-
-	if (!value) {
-		showErrorMessage(emailInput, 'Email is a required field.')
-		return false
-	}
-
-	if (value.indexOf('@') === -1) {
-		showErrorMessage(emailInput, 'You must enter a valid email address.')
-		return false
-	}
-
-	if (value.indexOf('.') === -1) {
-		showErrorMessage(emailInput, 'You must enter a valid email address.')
-		return false
-	}
-
-	showErrorMessage(emailInput, null)
-	return true
-}
-function validatePassword() {
-	let value = passwordInput.value
-
-	if (!value) {
-		showErrorMessage(passwordInput, 'Password is a required field.')
-		return false
-	}
-
-	if (value.length < 8) {
-		showErrorMessage(
-			passwordInput,
-			'The password needs to be at least 8 characters long.'
-		)
-		return false
-	}
-
-	showErrorMessage(passwordInput, null)
-	return true
-}
-
-function showErrorMessage(input, message) {
-	let container = input.parentElement // The .input-wrapper
-
-	// Check and Remove any existing errors
-	let error = container.querySelector('.error-message')
-	if (error) {
-		container.removeChild(error)
-	}
-
-	// Now add the error if the message isn’t empty
-	if (message) {
-		let error = document.createElement('div')
-		error.classList.add('error-message')
-		error.innerText = message
-		container.appendChild(error)
-	}
-}
-
-function validateForm() {
-	let isValidEmail = validateEmail()
-	let isValidPassword = validatePassword()
-	return isValidEmail && isValidPassword
-}
-
-// let newElement = $('<div class="new-class">Content is here!</div>')
-// $('body').append(newElement)
